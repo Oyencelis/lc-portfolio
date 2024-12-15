@@ -36,25 +36,25 @@ const Navigation: React.FC = () => {
             </li>
             <li className="nav-item">
               <Link
-                to="/about"
-                className={getLinkClass("/about")}
-                data-text="About"
+                to="/projects"
+                className={getLinkClass("/projects")}
+                data-text="Projects"
               >
-                <span className="actual-text">&nbsp;About&nbsp;</span>
+                <span className="actual-text">&nbsp;Projects&nbsp;</span>
                 <span aria-hidden="true" className="hover-text">
-                  &nbsp;About&nbsp;
+                  &nbsp;Projects&nbsp;
                 </span>
               </Link>
             </li>
             <li className="nav-item">
               <Link
-                to="/project"
-                className={getLinkClass("/project")}
-                data-text="Project"
+                to="/testimonial"
+                className={getLinkClass("/testimonial")}
+                data-text="Testimonials"
               >
-                <span className="actual-text">&nbsp;Project&nbsp;</span>
+                <span className="actual-text">&nbsp;Testimonials&nbsp;</span>
                 <span aria-hidden="true" className="hover-text">
-                  &nbsp;Project&nbsp;
+                  &nbsp;Testimonials&nbsp;
                 </span>
               </Link>
             </li>
@@ -67,6 +67,18 @@ const Navigation: React.FC = () => {
                 <span className="actual-text">&nbsp;Contact&nbsp;</span>
                 <span aria-hidden="true" className="hover-text">
                   &nbsp;Contact&nbsp;
+                </span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/blog"
+                className={getLinkClass("/blog")}
+                data-text="Blog"
+              >
+                <span className="actual-text">&nbsp;Blog&nbsp;</span>
+                <span aria-hidden="true" className="hover-text">
+                  &nbsp;Blog&nbsp;
                 </span>
               </Link>
             </li>

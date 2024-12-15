@@ -312,13 +312,21 @@ button:hover .button-text {
 }
 
 .hero-section {
+  position: relative;
   min-height: 100vh;
-  background-color: var(--bg-color);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--bg-color), 1) 0%,
+    rgba(var(--bg-color), 1) 100%
+  );
   color: var(--text-color);
   padding: 2rem;
+  overflow: hidden;
 }
 
 .hero-container {
+  position: relative;
+  z-index: 2;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
@@ -523,6 +531,7 @@ button:hover .button-text {
 .scroll-indicator {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   align-items: center;
   margin-top: 2rem;
   color: var(--text-color);
@@ -658,6 +667,50 @@ button:hover .button-text {
   box-shadow: 0 10px 20px rgba(99, 170, 255, 0.2);
 }
 
+/* Add these new styles for the wave animation */
+.wave-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  min-height: 50px;
+  max-height: 100px;
+}
+
+.wave-parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+.wave-parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.wave-parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.wave-parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.wave-parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
 /* Animation Keyframes */
 @keyframes glitch-anim {
   0% { clip: rect(17px, 9999px, 94px, 0); }
@@ -742,6 +795,15 @@ button:hover .button-text {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
   }
 }
 
@@ -919,6 +981,11 @@ button:hover .button-text {
   .role {
     font-size: 2rem;
   }
+
+  .typewriter {
+    font-size: 1.2rem;  /* Adjust font size for smaller screens */
+    letter-spacing: .1em;  /* Reduce letter spacing for better readability */
+  }
 }
 
 /* For max-width: 480px */
@@ -954,6 +1021,11 @@ button:hover .button-text {
   
   .tagline .glitch {
     font-size: 0.8rem;
+  }
+
+  .typewriter {
+    font-size: 1rem;  /* Further reduce font size */
+    letter-spacing: .08em;  
   }
 }
 
@@ -1047,11 +1119,35 @@ html {
   font-size: calc(14px + 0.390625vw);
 }
 
-/* Improve form element touch targets */
 input, 
 button, 
 select, 
 textarea {
-  font-size: 16px; /* Prevent iOS zoom on focus */
+  font-size: 16px;
   padding: 12px;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 10px;
+  border: 1px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--bg-color);
 }

@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  FaGithub,
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaArrowDown,
-} from "react-icons/fa";
+import { FaGithub, FaFacebook, FaInstagram, FaArrowDown } from "react-icons/fa";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -22,7 +16,16 @@ const HomePage: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [isRoleChanging, setIsRoleChanging] = useState(false);
 
-  const roles = ["Frontend Developer", "UI/UX Designer", "Web Designer", "Coding Enthusiast", "React Specialist", "Web Application Developer", "Student Developer", "Future Tech Leader"];
+  const roles = [
+    "Frontend Developer",
+    "UI/UX Designer",
+    "Web Designer",
+    "Coding Enthusiast",
+    "React Specialist",
+    "Web Application Developer",
+    "Student Developer",
+    "Future Tech Leader",
+  ];
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -57,11 +60,67 @@ const HomePage: React.FC = () => {
     return () => clearInterval(roleInterval);
   }, []);
 
+  const getTimeBasedGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return "Good Morning";
+    if (hour >= 12 && hour < 17) return "Good Afternoon";
+    if (hour >= 17 && hour < 22) return "Good Evening";
+    return "Good Night";
+  };
+
+  const scrollToContent = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className={`hero-section ${isVisible ? "visible" : ""}`}>
+      <div className="wave-background">
+        <svg
+          className="waves"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <path
+              id="gentle-wave"
+              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            />
+          </defs>
+          <g className="wave-parallax">
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="0"
+              fill="rgba(99, 170, 255, 0.05)"
+            />
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="3"
+              fill="rgba(99, 170, 255, 0.03)"
+            />
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="5"
+              fill="rgba(99, 170, 255, 0.01)"
+            />
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="7"
+              fill="rgba(99, 170, 255, 0.02)"
+            />
+          </g>
+        </svg>
+      </div>
       <div className="hero-container">
         <div className="hero-header animate-on-scroll">
-          <span className="greeting">Hey, I'm</span>
+          <span className="greeting">{getTimeBasedGreeting()}, I'm</span>
           <h1 className="glitch animate-role" data-text="Lawrence Celis">
             Lawrence Celis
           </h1>
@@ -73,7 +132,7 @@ const HomePage: React.FC = () => {
             <span className="highlight">merge innovation with style ✨</span>
           </p>
 
-          <div className="scroll-indicator">
+          <div className="scroll-indicator" onClick={scrollToContent}>
             <span>Scroll Down</span>
             <FaArrowDown className="bounce" />
           </div>
@@ -110,7 +169,11 @@ const HomePage: React.FC = () => {
                 </ul>
               </div>
 
-              <a href="/resume.pdf" className="download-resume">
+              <a
+                href="https://drive.google.com/file/d/1WIPQxRREwZDHSw62X1wJeg73rqGf2dU8/view"
+                target="_blank"
+                className="download-resume"
+              >
                 View Resume
               </a>
             </div>
@@ -257,15 +320,6 @@ const HomePage: React.FC = () => {
                   aria-label="GitHub Profile"
                 >
                   <FaGithub />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/yourprofile"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  aria-label="LinkedIn Profile"
-                >
-                  <FaLinkedin />
                 </a>
                 <a
                   href="https://www.facebook.com/lawrence.celis.31"
