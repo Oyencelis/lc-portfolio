@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 interface Point {
   x: number;
@@ -15,13 +15,12 @@ const AnimatedBackground: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId: number;
     let points: Point[] = [];
     let mousePosition = { x: 0, y: 0 };
-    let lastTime = 0;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -73,7 +72,7 @@ const AnimatedBackground: React.FC = () => {
         5
       );
       gradient.addColorStop(0, `rgba(0, 100, 150, ${point.life})`);
-      gradient.addColorStop(1, 'transparent');
+      gradient.addColorStop(1, "transparent");
 
       ctx.beginPath();
       ctx.fillStyle = gradient;
@@ -81,11 +80,9 @@ const AnimatedBackground: React.FC = () => {
       ctx.fill();
     };
 
-    const animate = (currentTime: number) => {
-      lastTime = currentTime;
-
+    const animate = () => {
       // Using a dark background with subtle movement
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       points.forEach((point, i) => {
@@ -135,15 +132,15 @@ const AnimatedBackground: React.FC = () => {
       mousePosition.y = event.clientY;
     };
 
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", handleMouseMove);
     resize();
     init();
-    animate(0);
+    animate();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -152,13 +149,13 @@ const AnimatedBackground: React.FC = () => {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
         zIndex: -1,
-        background: 'var(--bg-color)',
+        background: "var(--bg-color)",
       }}
     />
   );

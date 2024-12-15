@@ -9,12 +9,7 @@ import {
   FaPython,
   FaBootstrap,
 } from "react-icons/fa";
-import {
-  SiTypescript,
-  SiFlask,
-  SiMysql,
-  SiSpringboot
-} from "react-icons/si";
+import { SiTypescript, SiFlask, SiMysql, SiSpringboot } from "react-icons/si";
 
 const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,9 +17,10 @@ const HomePage: React.FC = () => {
   const [isRoleChanging, setIsRoleChanging] = useState(false);
 
   const roles = [
-    "College Student Developer",
+    "A College Student",
     "Tech Enthusiast",
-    "Web Design Lover",
+    "Web Designer",
+    "AI Expert",
     "Coding Ninja",
     "Future Tech Leader",
   ];
@@ -107,7 +103,7 @@ const HomePage: React.FC = () => {
     <section className={`hero-section ${isVisible ? "visible" : ""}`}>
       <div className="hero-container">
         <div className="hero-header animate-on-scroll">
-          <span className="greeting">{getTimeBasedGreeting()}, I'm</span>
+          <span className="greeting">{getTimeBasedGreeting()} <br /><br /> I'm</span>
           <h1 className="glitch animate-role" data-text="Lawrence Celis">
             Lawrence Celis
           </h1>
@@ -143,16 +139,17 @@ const HomePage: React.FC = () => {
                 By day, I'm a tech-savvy student, and by night, a coding ninja.
                 I fuel my coding sessions with coffee and turn my ideas into
                 digital realities. When I'm not squashing bugs, you can find me
-                gaming with my squad or crafting the ultimate vibe playlist.
-                🚀💻
+                gaming with my squad, crafting the ultimate vibe playlist, or
+                experimenting with AI tools to create futuristic magic. 🚀💻🤖
               </p>
 
               <div className="fun-facts">
                 <h3>Fun Facts</h3>
                 <ul>
-                  <li>🎮 Avid Gamer</li>
-                  <li>🎵 Music Enthusiast</li>
-                  <li>☕ Coffee Addict</li>
+                  <li>🎮 I'm lowkey obsessed with gaming and always down to squad up with friends and take on the latest gaming trends.</li>
+                  <li>🎵 Music is, like, my ultimate vibe - I'm all about discovering new artists and creating playlists that are straight fire.</li>
+                  <li>☕ Coffee is my love language, and I'm not ashamed to admit that I'm a total caffeine fiend - it's the only way I can keep up with my crazy coding schedule.</li>
+                  <li>🤖 AI is, like, the future and stuff, and I'm super stoked to be learning all about it and finding ways to use it to make a real impact.</li>
                 </ul>
               </div>
 
@@ -222,7 +219,7 @@ const HomePage: React.FC = () => {
                   >
                     <SiTypescript /> TypeScript
                   </a>
-                </span> 
+                </span>
                 <span>
                   <a
                     href="https://flask.palletsprojects.com/"
