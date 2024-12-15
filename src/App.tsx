@@ -6,12 +6,15 @@ import TestimonialPage from "./pages/TestimonialPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
 import BlogPage from "./pages/BlogPage.tsx";
+import NotFound from "./pages/NotFound";
 import "./App.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import AnimatedBackground from "./components/AnimatedBackground.tsx";
 
 const App: React.FC = () => {
   return (
     <Router>
+      <AnimatedBackground />
       <Navigation />
       <main>
         <Routes>
@@ -20,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/testimonial" element={<TestimonialPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </Router>

@@ -11,6 +11,10 @@
   --animation-color: #56a3f0;
 }
 
+html {
+  font-size: calc(14px + 0.390625vw);
+}
+
 body {
   background-color: var(--bg-color);
   margin: 0;
@@ -28,7 +32,8 @@ body {
 }
 
 .navbar-custom {
-  background-color: var(--bg-color);
+  background-color: rgba(24, 24, 24, 0.8);
+  backdrop-filter: blur(10px);
   padding: 10px 0;
   z-index: 1000;
   position: relative;
@@ -424,6 +429,11 @@ button:hover .button-text {
   position: relative;
   color: var(--secondary);
   letter-spacing: 3px;
+  font-size: 8rem;
+  font-weight: bold;
+  text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                0.025em 0.04em 0 #fffc00;
+  animation: glitch 725ms infinite;
   text-transform: uppercase;
 }
 
@@ -450,6 +460,18 @@ button:hover .button-text {
   clip: rect(85px, 550px, 140px, 0);
   animation: glitch-anim 2.5s infinite linear alternate-reverse;
 }
+
+
+.glitch-wrapper {
+  margin-bottom: 2rem;
+}
+
+.glitch span {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 
 .typewriter {
   overflow: hidden;
@@ -667,6 +689,111 @@ button:hover .button-text {
   box-shadow: 0 10px 20px rgba(99, 170, 255, 0.2);
 }
 
+.not-found-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.robot {
+  margin: 2rem 0;
+}
+
+.robot-head {
+  width: 120px;
+  height: 120px;
+  background: var(--secondary);
+  border-radius: 20px;
+  position: relative;
+  margin: 0 auto;
+  animation: float 6s ease-in-out infinite;
+}
+
+.eye-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 15px;
+}
+
+.eye-wrapper {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eye {
+  width: 15px;
+  height: 15px;
+  background: var(--bg-color);
+  border-radius: 50%;
+  position: relative;
+}
+
+.mouth {
+  width: 40px;
+  height: 5px;
+  background: var(--bg-color);
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+.error-message {
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--text-color);
+}
+
+.error-message h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+.home-button {
+  text-decoration: none;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid var(--secondary);
+  color: var(--secondary);
+  border-radius: 30px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-icon {
+  transition: transform 0.3s ease;
+}
+
+.home-button:hover {
+  background: var(--secondary);
+  color: var(--bg-color);
+}
+
+.home-button:hover .button-icon {
+  transform: translateX(5px);
+}
+
 /* Add these new styles for the wave animation */
 .wave-background {
   position: absolute;
@@ -730,6 +857,37 @@ button:hover .button-text {
   100% { clip: rect(89px, 9999px, 33px, 0); }
 }
 
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                 0.025em 0.04em 0 #fffc00;
+  }
+  15% {
+    text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                 0.025em 0.04em 0 #fffc00;
+  }
+  16% {
+    text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                 -0.05em -0.05em 0 #fffc00;
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                 -0.05em -0.05em 0 #fffc00;
+  }
+  50% {
+    text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                 0 -0.04em 0 #fffc00;
+  }
+  99% {
+    text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                 0 -0.04em 0 #fffc00;
+  }
+  100% {
+    text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                 -0.04em -0.025em 0 #fffc00;
+  }
+}
+
 @keyframes typing {
   from { width: 0 }
   to { width: 100% }
@@ -753,6 +911,19 @@ button:hover .button-text {
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
     transform: translateY(0);
   }
 }
@@ -894,7 +1065,7 @@ button:hover .button-text {
   }
 
   .hero-content h1 {
-    font-size: 3rem;
+    font-size: 1rem;
   }
 
   .skills {
@@ -981,11 +1152,19 @@ button:hover .button-text {
   .role {
     font-size: 2rem;
   }
-
-  .typewriter {
-    font-size: 1.2rem;  /* Adjust font size for smaller screens */
-    letter-spacing: .1em;  /* Reduce letter spacing for better readability */
+  .glitch {
+    font-size: 4rem;
   }
+  
+  .robot-head {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .error-message h2 {
+    font-size: 1.5rem;
+  }
+
 }
 
 /* For max-width: 480px */
@@ -1021,11 +1200,6 @@ button:hover .button-text {
   
   .tagline .glitch {
     font-size: 0.8rem;
-  }
-
-  .typewriter {
-    font-size: 1rem;  /* Further reduce font size */
-    letter-spacing: .08em;  
   }
 }
 
@@ -1114,11 +1288,6 @@ body {
   min-height: -webkit-fill-available;
 }
 
-/* Add smooth font scaling */
-html {
-  font-size: calc(14px + 0.390625vw);
-}
-
 input, 
 button, 
 select, 
@@ -1146,8 +1315,32 @@ textarea {
   background: var(--hover-color);
 }
 
-/* For Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--secondary) var(--bg-color);
+/* Add to your existing CSS */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
 }
+
+/* Adjust the navbar to work with the background */
+.navbar-custom {
+  background-color: rgba(25, 24, 24, 0.227);
+  backdrop-filter: blur(10px);
+}
+
+/* Adjust the NotFound page to work with the background */
+.not-found-container {
+  background-color: transparent;
+}
+
+/* Add a subtle glow effect to interactive elements */
+.nav-link:hover .hover-text,
+.home-button:hover,
+.social-icon:hover {
+  text-shadow: 0 0 10px var(--secondary);
+}
+

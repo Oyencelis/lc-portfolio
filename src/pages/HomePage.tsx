@@ -9,7 +9,12 @@ import {
   FaPython,
   FaBootstrap,
 } from "react-icons/fa";
-import { SiTypescript, SiFlask, SiMysql, SiSpringboot } from "react-icons/si";
+import {
+  SiTypescript,
+  SiFlask,
+  SiMysql,
+  SiSpringboot
+} from "react-icons/si";
 
 const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,13 +22,10 @@ const HomePage: React.FC = () => {
   const [isRoleChanging, setIsRoleChanging] = useState(false);
 
   const roles = [
-    "Frontend Developer",
-    "UI/UX Designer",
-    "Web Designer",
-    "Coding Enthusiast",
-    "React Specialist",
-    "Web Application Developer",
-    "Student Developer",
+    "College Student Developer",
+    "Tech Enthusiast",
+    "Web Design Lover",
+    "Coding Ninja",
     "Future Tech Leader",
   ];
 
@@ -62,10 +64,36 @@ const HomePage: React.FC = () => {
 
   const getTimeBasedGreeting = () => {
     const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return "Good Morning";
-    if (hour >= 12 && hour < 17) return "Good Afternoon";
-    if (hour >= 17 && hour < 22) return "Good Evening";
-    return "Good Night";
+    const greetings = {
+      morning: ["Rise and shine!"],
+      afternoon: ["Hey there!"],
+      evening: ["Time to code!"],
+      night: ["Working late?"],
+    };
+
+    let timeOfDay;
+    let emoji;
+
+    if (hour >= 5 && hour < 12) {
+      timeOfDay = "morning";
+      emoji = "☀️";
+    } else if (hour >= 12 && hour < 17) {
+      timeOfDay = "afternoon";
+      emoji = "🌤️";
+    } else if (hour >= 17 && hour < 22) {
+      timeOfDay = "evening";
+      emoji = "🌅";
+    } else {
+      timeOfDay = "night";
+      emoji = "🌙";
+    }
+
+    const randomIndex = Math.floor(
+      Math.random() * greetings[timeOfDay as keyof typeof greetings].length
+    );
+    return `${
+      greetings[timeOfDay as keyof typeof greetings][randomIndex]
+    } ${emoji}`;
   };
 
   const scrollToContent = () => {
@@ -77,47 +105,6 @@ const HomePage: React.FC = () => {
 
   return (
     <section className={`hero-section ${isVisible ? "visible" : ""}`}>
-      <div className="wave-background">
-        <svg
-          className="waves"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 24 150 28"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <path
-              id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-            />
-          </defs>
-          <g className="wave-parallax">
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="0"
-              fill="rgba(99, 170, 255, 0.05)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="3"
-              fill="rgba(99, 170, 255, 0.03)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="5"
-              fill="rgba(99, 170, 255, 0.01)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="7"
-              fill="rgba(99, 170, 255, 0.02)"
-            />
-          </g>
-        </svg>
-      </div>
       <div className="hero-container">
         <div className="hero-header animate-on-scroll">
           <span className="greeting">{getTimeBasedGreeting()}, I'm</span>
@@ -178,11 +165,28 @@ const HomePage: React.FC = () => {
               </a>
             </div>
           </div>
-
           <div className="right-section">
             <div className="skills-container animate-on-scroll">
               <h3>Tech Stack</h3>
               <div className="skills">
+                <span>
+                  <a
+                    href="https://getbootstrap.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaBootstrap /> Bootstrap
+                  </a>
+                </span>
+                <span>
+                  <a
+                    href="https://react.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaReact /> React
+                  </a>
+                </span>
                 <span>
                   <a
                     href="https://developer.mozilla.org/en-US/docs/Web/HTML"
@@ -212,31 +216,13 @@ const HomePage: React.FC = () => {
                 </span>
                 <span>
                   <a
-                    href="https://react.dev/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaReact /> React
-                  </a>
-                </span>
-                <span>
-                  <a
                     href="https://www.typescriptlang.org/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <SiTypescript /> TypeScript
                   </a>
-                </span>
-                <span>
-                  <a
-                    href="https://www.java.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaJava /> Java
-                  </a>
-                </span>
+                </span> 
                 <span>
                   <a
                     href="https://flask.palletsprojects.com/"
@@ -257,11 +243,20 @@ const HomePage: React.FC = () => {
                 </span>
                 <span>
                   <a
-                    href="https://getbootstrap.com/"
+                    href="https://spring.io/projects/spring-boot"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaBootstrap /> Bootstrap
+                    <SiSpringboot /> Spring Boot
+                  </a>
+                </span>
+                <span>
+                  <a
+                    href="https://www.java.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaJava /> Java
                   </a>
                 </span>
                 <span>
@@ -271,15 +266,6 @@ const HomePage: React.FC = () => {
                     rel="noopener noreferrer"
                   >
                     <SiMysql /> MySQL
-                  </a>
-                </span>
-                <span>
-                  <a
-                    href="https://spring.io/projects/spring-boot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <SiSpringboot /> Spring Boot
                   </a>
                 </span>
               </div>
@@ -343,6 +329,47 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="wave-background">
+        <svg
+          className="waves"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <path
+              id="gentle-wave"
+              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            />
+          </defs>
+          <g className="wave-parallax">
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="0"
+              fill="rgba(99, 170, 255, 0.05)"
+            />
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="3"
+              fill="rgba(99, 170, 255, 0.03)"
+            />
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="5"
+              fill="rgba(99, 170, 255, 0.01)"
+            />
+            <use
+              href="#gentle-wave"
+              x="48"
+              y="7"
+              fill="rgba(99, 170, 255, 0.02)"
+            />
+          </g>
+        </svg>
       </div>
     </section>
   );
