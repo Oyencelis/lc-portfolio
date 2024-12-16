@@ -1,26 +1,22 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.0">
+  <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+
   <xsl:template match="/">
     <html>
+      <head>
+        <title>Sitemap</title>
+      </head>
       <body>
-        <h2>Sitemap</h2>
-        <table border="1">
-          <tr>
-            <th>Location</th>
-            <th>Last Modified</th>
-            <th>Change Frequency</th>
-            <th>Priority</th>
-          </tr>
-          <xsl:for-each select="//url">
-            <tr>
-              <td><xsl:value-of select="loc" /></td>
-              <td><xsl:value-of select="lastmod" /></td>
-              <td><xsl:value-of select="changefreq" /></td>
-              <td><xsl:value-of select="priority" /></td>
-            </tr>
+        <h1>Sitemap</h1>
+        <ul>
+          <xsl:for-each select="urlset/url">
+            <li>
+              <xsl:value-of select="loc"/>
+            </li>
           </xsl:for-each>
-        </table>
+        </ul>
       </body>
     </html>
   </xsl:template>
