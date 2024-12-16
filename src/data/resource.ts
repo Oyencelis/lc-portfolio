@@ -10,7 +10,7 @@ export const resources: Resource[] = [
       title: "Vercel",
       description: "A cloud platform specializing in static site hosting and serverless functions deployment with automatic CI/CD.",
       link: "https://vercel.com/",
-      category: "Cloud Platforms",
+      category: "Code Hosting",
     },
     {
       title: "ChatGPT",
