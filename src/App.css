@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 50px;
+  margin: 0px 20px;
 }
 
 .navbar-custom {  
@@ -738,6 +738,9 @@ button:hover .button-text {
 }
 
 .filter-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
   background: transparent;
   border: 1px solid var(--secondary);
   color: var(--text-color);
@@ -745,6 +748,24 @@ button:hover .button-text {
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--secondary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.filter-btn:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .filter-btn:hover,
@@ -762,15 +783,32 @@ button:hover .button-text {
 
 .project-card {
   position: relative;
-  border-radius: 15px;
   overflow: hidden;
   background: rgba(99, 170, 255, 0.05);
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 170, 255, 0.1);
+  transition: all 0.3s ease;
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(99, 170, 255, 0.1),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.project-card:hover::before {
+  transform: translateX(100%);
 }
 
 .project-image {
@@ -935,6 +973,28 @@ button:hover .button-text {
 
 .tech-tag svg {
   font-size: 1.2rem;
+}
+
+.live-link-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.live-link-button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: var(--secondary);
+  color: var(--bg-color);
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.live-link-button:hover {
+  background: var(--hover-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(99, 170, 255, 0.3);
 }
 
 /* Image Preview Styles */
@@ -1149,6 +1209,52 @@ button:hover .button-text {
 .wave-parallax > use:nth-child(4) {
   animation-delay: -5s;
   animation-duration: 20s;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(99, 170, 255, 0.15);
+  animation: fadeIn 0.3s ease-in forwards;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top svg {
+  color: var(--bg-color);
+  transition: transform 0.3s ease;
+}
+
+.back-to-top:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(99, 170, 255, 0.25);
+}
+
+.back-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+.back-to-top:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 170, 255, 0.3);
 }
 
 /* Animation Keyframes */
@@ -1445,7 +1551,7 @@ button:hover .button-text {
   }
 
   .glitch {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .content-wrapper {
@@ -1454,7 +1560,7 @@ button:hover .button-text {
   }
   
   .hero-header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .tagline {
@@ -1513,6 +1619,18 @@ button:hover .button-text {
   .close-preview {
     top: 1rem;
     right: 1rem;
+  }
+
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
   }
 
 }
@@ -1580,6 +1698,15 @@ button:hover .button-text {
   .animate-on-scroll {
     transition: opacity 0.3s ease;
   }
+
+  .back-to-top {
+    width: 50px;
+    height: 50px;
+  }
+
+  .back-to-top:hover {
+    transform: none;
+  }
 }
 
 /* Landscape mode adjustments */
@@ -1630,6 +1757,18 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .back-to-top {
+    transition: none;
+  }
+
+  .back-to-top:hover {
+    transform: none;
+  }
+
+  .back-to-top:hover svg {
+    transform: none;
+  }
 }
 
 input, 
@@ -1668,4 +1807,134 @@ textarea {
   height: 100%;
   z-index: -1;
   pointer-events: none;
+}
+
+
+/* For max-width: 400px */
+@media (max-width: 400px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .container {
+    margin: 0px 20px;
+  }
+
+  .skills {
+    gap: 5px;
+  }
+
+  .skills span {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .hero-grid {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .content-grid {
+    gap: 0.8rem;
+  }
+
+  .bio {
+    padding: 0.8rem;
+  }
+
+  .stat-card {
+    padding: 0.8rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .greeting {
+    font-size: 0.9rem;
+  }
+
+  .role {
+    font-size: 1rem;
+  }
+
+  .glitch {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 0.8rem;
+    padding: 0 0.5rem;
+  }
+
+  button.learn-more {
+    width: 10rem;
+  }
+
+  button.learn-more .circle {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  button.learn-more .button-text {
+    font-size: 0.9rem;
+  }
+
+  .projects-header h1 {
+    font-size: 2rem;
+  }
+
+  .projects-header p {
+    font-size: 0.9rem;
+  }
+
+  .filter-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .projects-grid {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .tech-tag {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .close-modal,
+  .close-preview {
+    width: 35px;
+    height: 35px;
+  }
+
+  .nav-link {
+    font-size: 1.1em;
+  }
+
+  .social-icon {
+    font-size: 1.2rem;
+  }
+
+  .social-links {
+    gap: 0;
+  }
 }

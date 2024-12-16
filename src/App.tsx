@@ -10,7 +10,7 @@ import NotFound from "./pages/NotFound";
 import "./App.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import AnimatedBackground from "./components/AnimatedBackground.tsx";
-
+import BackToTopButton from "./components/BackToTopButton.tsx";
 const App: React.FC = () => {
   return (
     <Router>
@@ -26,6 +26,7 @@ const App: React.FC = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+      <BackToTopButton />
     </Router>
   );
 };

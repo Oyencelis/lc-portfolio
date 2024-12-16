@@ -8,7 +8,17 @@ interface Point {
   life: number;
 }
 
-const AnimatedBackground: React.FC = () => {
+interface AnimatedBackgroundProps {
+  pointCount?: number; // Number of points
+  pointSpeed?: number; // Maximum speed of points
+  trailColor?: string; // Base color of trails
+}
+
+const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
+  pointCount = 100,
+  pointSpeed = 0.5,
+  trailColor = "rgba(0, 100, 150",
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -16,27 +26,43 @@ const AnimatedBackground: React.FC = () => {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      console.error("Canvas 2D context is not supported in this browser.");
+      return;
+    }
 
     let animationFrameId: number;
     let points: Point[] = [];
     let mousePosition = { x: 0, y: 0 };
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.scale(dpr, dpr);
+    };
+
+    const throttle = (callback: Function, delay: number) => {
+      let lastTime = 0;
+      return (...args: any[]) => {
+        const now = Date.now();
+        if (now - lastTime >= delay) {
+          lastTime = now;
+          callback(...args);
+        }
+      };
     };
 
     const createPoint = (x: number, y: number): Point => ({
       x,
       y,
-      vx: (Math.random() - 0.5) * 0.5, // Reduced speed for subtlety
-      vy: (Math.random() - 0.5) * 0.5, // Reduced speed for subtlety
+      vx: (Math.random() - 0.5) * pointSpeed,
+      vy: (Math.random() - 0.5) * pointSpeed,
       life: Math.random() * 0.5 + 0.5,
     });
 
     const init = () => {
-      points = Array(100) // Increased number of points for a more subtle effect
+      points = Array(pointCount)
         .fill(null)
         .map(() =>
           createPoint(
@@ -49,14 +75,12 @@ const AnimatedBackground: React.FC = () => {
     const drawTrail = (p1: Point, p2: Point, life: number) => {
       const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
       const alpha = Math.min(life, 0.5);
-
-      // Using deep blues, purples, and blacks for a dark, cosmic theme
-      gradient.addColorStop(0, `rgba(0, 100, 150, ${alpha})`);
-      gradient.addColorStop(1, `rgba(0, 100, 150, ${alpha})`);
+      gradient.addColorStop(0, `${trailColor}, ${alpha})`);
+      gradient.addColorStop(1, `${trailColor}, ${alpha})`);
 
       ctx.beginPath();
       ctx.strokeStyle = gradient;
-      ctx.lineWidth = 2 * life;
+      ctx.lineWidth = Math.max(1, 2 * life);
       ctx.moveTo(p1.x, p1.y);
       ctx.lineTo(p2.x, p2.y);
       ctx.stroke();
@@ -71,7 +95,7 @@ const AnimatedBackground: React.FC = () => {
         point.y,
         5
       );
-      gradient.addColorStop(0, `rgba(0, 100, 150, ${point.life})`);
+      gradient.addColorStop(0, `${trailColor}, ${point.life})`);
       gradient.addColorStop(1, "transparent");
 
       ctx.beginPath();
@@ -81,7 +105,6 @@ const AnimatedBackground: React.FC = () => {
     };
 
     const animate = () => {
-      // Using a dark background with subtle movement
       ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -89,16 +112,16 @@ const AnimatedBackground: React.FC = () => {
         point.x += point.vx;
         point.y += point.vy;
 
-        // Subtle attraction to mouse
+        // Attraction to mouse
         const dx = mousePosition.x - point.x;
         const dy = mousePosition.y - point.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 200) {
-          point.vx += (dx / dist) * 0.05; // Reduced attraction for subtlety
-          point.vy += (dy / dist) * 0.05; // Reduced attraction for subtlety
+          point.vx += (dx / dist) * 0.05;
+          point.vy += (dy / dist) * 0.05;
         }
 
-        // Connecting nearby points for a subtle wave effect
+        // Connect nearby points
         points.forEach((p2, j) => {
           if (i !== j) {
             const dx = p2.x - point.x;
@@ -112,25 +135,25 @@ const AnimatedBackground: React.FC = () => {
 
         drawPoint(point);
 
-        // Boundary checking with subtle bouncing
-        if (point.x < 0 || point.x > canvas.width) point.vx *= -0.9; // Subtle bouncing
-        if (point.y < 0 || point.y > canvas.height) point.vy *= -0.9; // Subtle bouncing
+        // Boundary checking and bouncing
+        if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
+        if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
 
-        // Speed limiting for a smooth animation
+        // Speed limiting
         const speed = Math.sqrt(point.vx * point.vx + point.vy * point.vy);
-        if (speed > 1) {
-          point.vx = (point.vx / speed) * 1; // Limiting speed for smoothness
-          point.vy = (point.vy / speed) * 1; // Limiting speed for smoothness
+        if (speed > pointSpeed) {
+          point.vx = (point.vx / speed) * pointSpeed;
+          point.vy = (point.vy / speed) * pointSpeed;
         }
       });
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
+    const handleMouseMove = throttle((event: MouseEvent) => {
       mousePosition.x = event.clientX;
       mousePosition.y = event.clientY;
-    };
+    }, 50);
 
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", handleMouseMove);
@@ -142,12 +165,15 @@ const AnimatedBackground: React.FC = () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
-  }, []);
+  }, [pointCount, pointSpeed, trailColor]);
 
   return (
     <canvas
       ref={canvasRef}
+      role="presentation"
+      aria-hidden="true"
       style={{
         position: "fixed",
         top: 0,
