@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { SiTypescript, SiFlask, SiMysql, SiSpringboot } from "react-icons/si";
 import WaveBackground from "../components/WaveBackground";
+import { Link } from "react-router-dom";
 
 const roles = [
   "A College Student",
@@ -282,26 +283,26 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className="action-section">
-              <button
-                className="learn-more"
-                onClick={() => (window.location.href = "/projects")}
-              >
-                <span className="circle">
-                  <span className="icon arrow"></span>
-                </span>
-                <span className="button-text">Projects</span>
-              </button>
+              <Link to="/projects" style={{ textDecoration: 'none' }}>
+                <button className="learn-more">
+                  <span className="circle">
+                    <span className="icon arrow"></span>
+                  </span>
+                  <span className="button-text">Projects</span>
+                </button>
+              </Link>
 
               <div className="collaboration-cta sticky-cta animate-on-scroll">
                 <h3>Collab Time!</h3>
                 <p>Project idea? Let's do this!</p>
-                <button
-                  className="cta-button"
-                  aria-label="Contact Me For Collaboration"
-                  onClick={() => (window.location.href = "/contact")}
-                >
-                  Let's Make Magic
-                </button>
+                <Link to="/contact" style={{ textDecoration: 'none' }}>
+                  <button
+                    className="cta-button"
+                    aria-label="Contact Me For Collaboration"
+                  >
+                    Let's Make Magic
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

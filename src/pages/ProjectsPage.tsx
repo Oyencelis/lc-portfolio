@@ -112,7 +112,7 @@ const ProjectsPage: React.FC = () => {
         "Scholarly: Academic platform for collaboration and resource sharing.",
       category: "Not Deployed",
       image: scholarlyImage,
-      techStack: ["HTML", "CSS", "JavaScript", "Springboot", "MySQL", "Java"],
+      techStack: ["HTML", "CSS", "JavaScript", "SpringBoot", "MySQL", "Java"],
       screenshots: [scholarlyImage, scholarlyImage1, scholarlyImage2],
       liveLink: "",
     },
