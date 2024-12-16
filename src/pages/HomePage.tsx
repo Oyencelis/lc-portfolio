@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaGithub, FaFacebook, FaInstagram, FaArrowDown } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -10,20 +10,22 @@ import {
   FaBootstrap,
 } from "react-icons/fa";
 import { SiTypescript, SiFlask, SiMysql, SiSpringboot } from "react-icons/si";
+import WaveBackground from "../components/WaveBackground";
+
+const roles = [
+  "A College Student",
+  "Tech Enthusiast",
+  "Web Designer",
+  "AI Expert",
+  "Coding Ninja",
+  "Future Tech Leader",
+];
 
 const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
   const [isRoleChanging, setIsRoleChanging] = useState(false);
-
-  const roles = [
-    "A College Student",
-    "Tech Enthusiast",
-    "Web Designer",
-    "AI Expert",
-    "Coding Ninja",
-    "Future Tech Leader",
-  ];
+  const [displayedRole, setDisplayedRole] = useState(roles[0]);
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -49,14 +51,16 @@ const HomePage: React.FC = () => {
     setIsVisible(true);
     const roleInterval = setInterval(() => {
       setIsRoleChanging(true);
+      
       setTimeout(() => {
         setRoleIndex((prev) => (prev + 1) % roles.length);
+        setDisplayedRole(roles[(roleIndex + 1) % roles.length]);
         setIsRoleChanging(false);
       }, 500);
     }, 3000);
 
     return () => clearInterval(roleInterval);
-  }, []);
+  }, [roleIndex]);
 
   const getTimeBasedGreeting = () => {
     const hour = new Date().getHours();
@@ -103,12 +107,18 @@ const HomePage: React.FC = () => {
     <section className={`hero-section ${isVisible ? "visible" : ""}`}>
       <div className="hero-container">
         <div className="hero-header animate-on-scroll">
-          <span className="greeting">{getTimeBasedGreeting()} <br /><br /> I'm</span>
+          <span className="greeting">
+            {getTimeBasedGreeting()} <br />
+            <br /> I'm
+          </span>
           <h1 className="glitch animate-role" data-text="Lawrence Celis">
             Lawrence Celis
           </h1>
-          <h2 className={`role typewriter ${isRoleChanging ? "changing" : ""}`}>
-            {roles[roleIndex]}
+          <h2 
+            key={roleIndex}
+            className={`role typewriter ${isRoleChanging ? "changing" : ""}`}
+          >
+            {displayedRole}
           </h2>
           <p className="tagline">
             Building digital experiences that{" "}
@@ -125,7 +135,7 @@ const HomePage: React.FC = () => {
           <div className="left-section">
             <div className="stats-grid">
               <div className="stat-card">
-                <span className="stat-number">5+</span>
+                <span className="stat-number">4</span>
                 <span className="stat-label">Projects Completed</span>
               </div>
               <div className="stat-card">
@@ -140,16 +150,19 @@ const HomePage: React.FC = () => {
                 I fuel my coding sessions with coffee and turn my ideas into
                 digital realities. When I'm not squashing bugs, you can find me
                 gaming with my squad, crafting the ultimate vibe playlist, or
-                experimenting with AI tools to create futuristic magic. 🚀💻🤖
+                experimenting with AI tools to create futuristic magic. I also
+                have a passion for sightseeing, whether it's exploring bustling cities,
+                marveling at majestic mountains, or basking in the serenity of the ocean. 🚀💻🤖🏞️
               </p>
 
               <div className="fun-facts">
                 <h3>Fun Facts</h3>
                 <ul>
-                  <li>🎮 I'm lowkey obsessed with gaming and always down to squad up with friends and take on the latest gaming trends.</li>
-                  <li>🎵 Music is, like, my ultimate vibe - I'm all about discovering new artists and creating playlists that are straight fire.</li>
-                  <li>☕ Coffee is my love language, and I'm not ashamed to admit that I'm a total caffeine fiend - it's the only way I can keep up with my crazy coding schedule.</li>
-                  <li>🤖 AI is, like, the future and stuff, and I'm super stoked to be learning all about it and finding ways to use it to make a real impact.</li>
+                  <li>🎮 Always up with the squad, gaming and exploring new adventures.</li>
+                  <li>🎵 Music aficionado, appreciating a wide range of genres.</li>
+                  <li>☕ Coffee connoisseur, relying on caffeine to power my coding.</li>
+                  <li>🤖 AI advocate, driven to apply AI for positive change.</li>
+                  <li>🏞️ Travel enthusiast, captivated by the diversity of landscapes.</li>
                 </ul>
               </div>
 
@@ -285,89 +298,16 @@ const HomePage: React.FC = () => {
                 <button
                   className="cta-button"
                   aria-label="Contact Me For Collaboration"
+                  onClick={() => (window.location.href = "/contact")}
                 >
                   Let's Make Magic
                 </button>
-              </div>
-
-              <div
-                className="social-links"
-                role="navigation"
-                aria-label="Social media links"
-              >
-                <a
-                  href="https://github.com/Oyencelis"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  aria-label="GitHub Profile"
-                >
-                  <FaGithub />
-                </a>
-                <a
-                  href="https://www.facebook.com/lawrence.celis.31"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  aria-label="Facebook Profile"
-                >
-                  <FaFacebook />
-                </a>
-                <a
-                  href="https://www.instagram.com/10.oyen/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  aria-label="Instagram Profile"
-                >
-                  <FaInstagram />
-                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="wave-background">
-        <svg
-          className="waves"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 24 150 28"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <path
-              id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-            />
-          </defs>
-          <g className="wave-parallax">
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="0"
-              fill="rgba(99, 170, 255, 0.05)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="3"
-              fill="rgba(99, 170, 255, 0.03)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="5"
-              fill="rgba(99, 170, 255, 0.01)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="7"
-              fill="rgba(99, 170, 255, 0.02)"
-            />
-          </g>
-        </svg>
-      </div>
+      <WaveBackground />
     </section>
   );
 };

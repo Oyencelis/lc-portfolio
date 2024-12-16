@@ -14,10 +14,14 @@ const Navigation: React.FC = () => {
     setIsNavVisible((prevState) => !prevState);
   };
 
+  const closeNav = () => {
+    setIsNavVisible(false);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-custom">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={closeNav}>
           <img src={logo} alt="Logo" className="logo" />
         </Link>
 
@@ -27,7 +31,7 @@ const Navigation: React.FC = () => {
         >
           <ul className="nav-container navbar-nav ms-auto">
             <li className="nav-item">
-              <Link to="/" className={getLinkClass("/")} data-text="Home">
+              <Link to="/" className={getLinkClass("/")} onClick={closeNav} data-text="Home">
                 <span className="actual-text">&nbsp;Home&nbsp;</span>
                 <span aria-hidden="true" className="hover-text">
                   &nbsp;Home&nbsp;
@@ -38,6 +42,7 @@ const Navigation: React.FC = () => {
               <Link
                 to="/projects"
                 className={getLinkClass("/projects")}
+                onClick={closeNav}
                 data-text="Projects"
               >
                 <span className="actual-text">&nbsp;Projects&nbsp;</span>
@@ -50,6 +55,7 @@ const Navigation: React.FC = () => {
               <Link
                 to="/testimonial"
                 className={getLinkClass("/testimonial")}
+                onClick={closeNav}
                 data-text="Testimonials"
               >
                 <span className="actual-text">&nbsp;Testimonials&nbsp;</span>
@@ -62,23 +68,25 @@ const Navigation: React.FC = () => {
               <Link
                 to="/contact"
                 className={getLinkClass("/contact")}
+                onClick={closeNav}
                 data-text="Contact"
               >
-                <span className="actual-text">&nbsp;Contact&nbsp;</span>
+                <span className="actual-text">&nbsp;Contacts&nbsp;</span>
                 <span aria-hidden="true" className="hover-text">
-                  &nbsp;Contact&nbsp;
+                  &nbsp;Contacts&nbsp;
                 </span>
               </Link>
             </li>
             <li className="nav-item">
               <Link
-                to="/blog"
-                className={getLinkClass("/blog")}
-                data-text="Blog"
+                to="/resource"
+                className={getLinkClass("/resource")}
+                onClick={closeNav}
+                data-text="Resource"
               >
-                <span className="actual-text">&nbsp;Blog&nbsp;</span>
+                <span className="actual-text">&nbsp;Resources&nbsp;</span>
                 <span aria-hidden="true" className="hover-text">
-                  &nbsp;Blog&nbsp;
+                  &nbsp;Resources&nbsp;
                 </span>
               </Link>
             </li>

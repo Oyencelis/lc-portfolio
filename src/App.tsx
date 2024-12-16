@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import TestimonialPage from "./pages/TestimonialPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
-import BlogPage from "./pages/BlogPage.tsx";
+import ResourcePage from "./pages/ResourcePage";
 import NotFound from "./pages/NotFound";
 import "./App.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -22,7 +22,7 @@ const App: React.FC = () => {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/testimonial" element={<TestimonialPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/resource" element={<ResourcePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

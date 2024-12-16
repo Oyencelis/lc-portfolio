@@ -1,49 +1,82 @@
-const TestimonialPage = () => {
+// src/pages/TestimonialPage.tsx
+import React, { useState, useCallback } from 'react';
+import TestimonialCard from '../components/TestimonialCard';
+import WaveBackground from '../components/WaveBackground';
+import { testimonialData } from '../data/testimonials'; // Move data to separate file
+import useIntersectionObserver from '../hooks/useIntersectionObserver'; // Create this hook
+
+interface Testimonial {
+  id: string;
+  image: string;
+  name: string;
+  text: string;
+}
+
+const TestimonialPage: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+
+  const handlePrevious = useCallback(() => {
+    setActiveIndex((prev) => 
+      prev === 0 ? testimonialData.length - 1 : prev - 1
+    );
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => 
+      prev === testimonialData.length - 1 ? 0 : prev + 1
+    );
+  }, []);
+
   return (
-    <section>
-      <div>About Me: I am a passionate developer...</div>;
-      <div className="wave-background">
-        <svg
-          className="waves"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 24 150 28"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <path
-              id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-            />
-          </defs>
-          <g className="wave-parallax">
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="0"
-              fill="rgba(99, 170, 255, 0.05)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="3"
-              fill="rgba(99, 170, 255, 0.03)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="5"
-              fill="rgba(99, 170, 255, 0.01)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="7"
-              fill="rgba(99, 170, 255, 0.02)"
-            />
-          </g>
-        </svg>
+    <section 
+      className={`testimonial-section ${isVisible ? 'fade-in' : ''}`}
+      ref={ref}
+      aria-label="Testimonials"
+    >
+      <h1 className="testimonial-header">What People Say</h1>
+      
+      <div className="testimonial-grid">
+        {testimonialData.map((testimonial: Testimonial, index: number) => (
+          <TestimonialCard
+            key={testimonial.id}
+            {...testimonial}
+            index={index}
+            activeIndex={activeIndex}
+          />
+        ))}
       </div>
+
+      <div className="carousel-controls" aria-label="Testimonial navigation">
+        <button
+          className="carousel-arrow prev"
+          onClick={handlePrevious}
+          aria-label="Previous testimonial"
+        >
+          ←
+        </button>
+        <div className="carousel-dots">
+          {testimonialData.map((_: any, index: number) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
+              onClick={() => setActiveIndex(index)}
+              aria-label={`Go to testimonial ${index + 1}`}
+              aria-current={index === activeIndex}
+            />
+          ))}
+        </div>
+        <button
+          className="carousel-arrow next"
+          onClick={handleNext}
+          aria-label="Next testimonial"
+        >
+          →
+        </button>
+      </div>
+      <WaveBackground />
     </section>
   );
 };
+
 export default TestimonialPage;

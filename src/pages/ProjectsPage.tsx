@@ -25,6 +25,7 @@ import {
 } from "react-icons/fa";
 import { SiTypescript, SiFlask, SiMysql, SiSpringboot } from "react-icons/si";
 import { motion } from "framer-motion";
+import WaveBackground from "../components/WaveBackground";
 
 interface Project {
   id: number;
@@ -211,14 +212,13 @@ const ProjectsPage: React.FC = () => {
     <section className="projects-section">
       <div className="projects-page">
         <header className="projects-header">
-          <h1>My Projects 🚀</h1>
+          <h1>My Projects</h1>
           <p>Where code meets creativity 💻</p>
           <div className="project-notice">
             <p>
-              Heads up! 🚨 Some of these projects are still in the works and
-              aren't live yet 🤖, but others are already deployed and rocking
-              🚀! Either way, they're all part of my student project portfolio
-              📚, showcasing my skills and progress as a dev 💻.
+              Heads up! 🚨 These projects are part of my student project portfolio
+              📚, showcasing my skills and progress as a dev 💻. Some are already deployed and rocking
+              🚀!
             </p>
           </div>
         </header>
@@ -345,48 +345,7 @@ const ProjectsPage: React.FC = () => {
           </div>
         )}
       </div>
-
-      <div className="wave-background">
-        <svg
-          className="waves"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 24 150 28"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <path
-              id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-            />
-          </defs>
-          <g className="wave-parallax">
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="0"
-              fill="rgba(99, 170, 255, 0.05)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="3"
-              fill="rgba(99, 170, 255, 0.03)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="5"
-              fill="rgba(99, 170, 255, 0.01)"
-            />
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="7"
-              fill="rgba(99, 170, 255, 0.02)"
-            />
-          </g>
-        </svg>
-      </div>
+      <WaveBackground />
     </section>
   );
 };
