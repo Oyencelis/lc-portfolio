@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo, useCallback } from "react";
+import { debounce } from 'lodash';
 
 interface Point {
   x: number;
@@ -6,168 +7,228 @@ interface Point {
   vx: number;
   vy: number;
   life: number;
+  size: number;
+  hue: number;
 }
 
 interface AnimatedBackgroundProps {
-  pointCount?: number; // Number of points
-  pointSpeed?: number; // Maximum speed of points
-  trailColor?: string; // Base color of trails
+  pointCount?: number;
+  pointSpeed?: number;
+  trailColor?: string;
+  maxConnections?: number;
+  trailLength?: number;
+  interactionRadius?: number;
+  quality?: 'low' | 'medium' | 'high';
+  enableAnimation?: boolean;
+  colorMode?: 'single' | 'rainbow' | 'gradient';
+  pulseSpeed?: number;
+  particleSize?: number;
 }
 
 const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
-  pointCount = 100,
+  pointCount = 50,
   pointSpeed = 0.5,
-  trailColor = "rgba(0, 100, 150",
+  trailColor = "rgba(255, 0, 255, 0.5)",
+  maxConnections = 3,
+  trailLength = 0.8,
+  interactionRadius = 120,
+  quality = 'medium',
+  enableAnimation = true,
+  colorMode = 'single',
+  pulseSpeed = 0.005,
+  particleSize = 5,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const frameRef = useRef<number>(0);
+  const pointsRef = useRef<Point[]>([]);
+  
+  const qualitySettings = useMemo(() => ({
+    low: {
+      points: Math.floor(pointCount * 0.5),
+      skipFrames: 2,
+      connectionDistance: 80,
+      dpr: 1,
+      blur: 0,
+    },
+    medium: {
+      points: pointCount,
+      skipFrames: 1,
+      connectionDistance: 100,
+      dpr: window.devicePixelRatio || 1,
+      blur: 0.5,
+    },
+    high: {
+      points: pointCount * 1.2,
+      skipFrames: 0,
+      connectionDistance: 120,
+      dpr: window.devicePixelRatio || 1,
+      blur: 1,
+    },
+  }), [pointCount]);
+
+  const getColor = useCallback((point: Point, time: number) => {
+    switch (colorMode) {
+      case 'rainbow':
+        return `hsla(${point.hue + time * 20}, 70%, 50%, ${point.life})`;
+      case 'gradient':
+        return `hsla(${(point.x / window.innerWidth) * 360}, 70%, 50%, ${point.life})`;
+      default:
+        return `${trailColor}, ${point.life})`;
+    }
+  }, [colorMode, trailColor]);
+
+  const createPoint = useCallback((x: number, y: number): Point => ({
+    x,
+    y,
+    vx: (Math.random() - 0.5) * pointSpeed,
+    vy: (Math.random() - 0.5) * pointSpeed,
+    life: Math.random() * 0.8 + 0.2,
+    size: Math.random() * particleSize + particleSize * 0.5,
+    hue: Math.random() * 360,
+  }), [pointSpeed, particleSize]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      console.error("Canvas 2D context is not supported in this browser.");
-      return;
-    }
+    const ctx = canvas.getContext('2d', {
+      alpha: true,
+      desynchronized: true,
+    });
+    if (!ctx) return;
 
-    let animationFrameId: number;
-    let points: Point[] = [];
+    const settings = qualitySettings[quality];
+    let time = 0;
     let mousePosition = { x: 0, y: 0 };
 
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+    const handleResize = debounce(() => {
+      const dpr = settings.dpr;
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.scale(dpr, dpr);
-    };
-
-    const throttle = (callback: Function, delay: number) => {
-      let lastTime = 0;
-      return (...args: any[]) => {
-        const now = Date.now();
-        if (now - lastTime >= delay) {
-          lastTime = now;
-          callback(...args);
-        }
-      };
-    };
-
-    const createPoint = (x: number, y: number): Point => ({
-      x,
-      y,
-      vx: (Math.random() - 0.5) * pointSpeed,
-      vy: (Math.random() - 0.5) * pointSpeed,
-      life: Math.random() * 0.5 + 0.5,
-    });
-
-    const init = () => {
-      points = Array(pointCount)
+      
+      pointsRef.current = Array(settings.points)
         .fill(null)
-        .map(() =>
-          createPoint(
-            Math.random() * canvas.width,
-            Math.random() * canvas.height
-          )
-        );
-    };
+        .map(() => createPoint(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height
+        ));
+    }, 250);
 
-    const drawTrail = (p1: Point, p2: Point, life: number) => {
-      const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-      const alpha = Math.min(life, 0.5);
-      gradient.addColorStop(0, `${trailColor}, ${alpha})`);
-      gradient.addColorStop(1, `${trailColor}, ${alpha})`);
-
-      ctx.beginPath();
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = Math.max(1, 2 * life);
-      ctx.moveTo(p1.x, p1.y);
-      ctx.lineTo(p2.x, p2.y);
-      ctx.stroke();
-    };
-
-    const drawPoint = (point: Point) => {
+    const drawPoint = (point: Point, time: number) => {
+      const size = point.size * (1 + Math.sin(time * pulseSpeed) * 0.3);
       const gradient = ctx.createRadialGradient(
-        point.x,
-        point.y,
-        0,
-        point.x,
-        point.y,
-        5
+        point.x, point.y, 0,
+        point.x, point.y, size
       );
-      gradient.addColorStop(0, `${trailColor}, ${point.life})`);
-      gradient.addColorStop(1, "transparent");
+      
+      const color = getColor(point, time);
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(1, 'transparent');
 
       ctx.beginPath();
       ctx.fillStyle = gradient;
-      ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+      ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
       ctx.fill();
     };
 
     const animate = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (!enableAnimation) return;
+      
+      frameRef.current++;
+      time += 0.016;
 
-      points.forEach((point, i) => {
+      if (frameRef.current % (settings.skipFrames + 1) !== 0) {
+        requestAnimationFrame(animate);
+        return;
+      }
+
+      ctx.fillStyle = `rgba(0, 0, 0, ${1 - trailLength})`;
+      ctx.filter = `blur(${settings.blur}px)`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.filter = 'none';
+
+      pointsRef.current.forEach((point, i) => {
         point.x += point.vx;
         point.y += point.vy;
-
-        // Attraction to mouse
+        
         const dx = mousePosition.x - point.x;
         const dy = mousePosition.y - point.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 200) {
-          point.vx += (dx / dist) * 0.05;
-          point.vy += (dy / dist) * 0.05;
+        
+        if (dist < interactionRadius) {
+          const force = (1 - dist / interactionRadius) * 0.02;
+          point.vx += dx * force;
+          point.vy += dy * force;
         }
 
-        // Connect nearby points
-        points.forEach((p2, j) => {
-          if (i !== j) {
-            const dx = p2.x - point.x;
-            const dy = p2.y - point.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 150) {
-              drawTrail(point, p2, (150 - dist) / 150);
-            }
+        let connections = 0;
+        for (let j = i + 1; j < pointsRef.current.length && connections < maxConnections; j++) {
+          const p2 = pointsRef.current[j];
+          const dx = p2.x - point.x;
+          const dy = p2.y - point.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < settings.connectionDistance) {
+            const opacity = (settings.connectionDistance - dist) / settings.connectionDistance;
+            ctx.beginPath();
+            ctx.strokeStyle = getColor({ ...point, life: opacity * trailLength }, time);
+            ctx.lineWidth = Math.min(point.size, p2.size) * 0.5;
+            ctx.moveTo(point.x, point.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+            connections++;
           }
-        });
+        }
 
-        drawPoint(point);
+        if (point.x < 0 || point.x > canvas.width) {
+          point.vx *= -0.8;
+          point.x = Math.max(0, Math.min(canvas.width, point.x));
+        }
+        if (point.y < 0 || point.y > canvas.height) {
+          point.vy *= -0.8;
+          point.y = Math.max(0, Math.min(canvas.height, point.y));
+        }
 
-        // Boundary checking and bouncing
-        if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
-        if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
-
-        // Speed limiting
         const speed = Math.sqrt(point.vx * point.vx + point.vy * point.vy);
         if (speed > pointSpeed) {
-          point.vx = (point.vx / speed) * pointSpeed;
-          point.vy = (point.vy / speed) * pointSpeed;
+          const dampening = 0.95;
+          point.vx *= dampening;
+          point.vy *= dampening;
         }
+
+        drawPoint(point, time);
       });
 
-      animationFrameId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     };
 
-    const handleMouseMove = throttle((event: MouseEvent) => {
-      mousePosition.x = event.clientX;
-      mousePosition.y = event.clientY;
-    }, 50);
+    const handleMouseMove = debounce((e: MouseEvent) => {
+      mousePosition = { x: e.clientX, y: e.clientY };
+    }, 16);
 
-    window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", handleMouseMove);
-    resize();
-    init();
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    handleResize();
     animate();
 
     return () => {
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(frameRef.current);
     };
-  }, [pointCount, pointSpeed, trailColor]);
+  }, [
+    quality,
+    enableAnimation,
+    pointSpeed,
+    trailLength,
+    maxConnections,
+    interactionRadius,
+    createPoint,
+    getColor,
+    qualitySettings,
+    pulseSpeed,
+  ]);
 
   return (
     <canvas
@@ -182,9 +243,11 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
         height: "100%",
         zIndex: -1,
         background: "var(--bg-color)",
+        willChange: "transform",
+        pointerEvents: "none",
       }}
     />
   );
 };
 
-export default AnimatedBackground;
+export default React.memo(AnimatedBackground);

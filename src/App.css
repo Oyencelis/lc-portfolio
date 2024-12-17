@@ -1,14 +1,15 @@
 /* Root Variables & Basic Elements */
 :root {
-  --bg-color: #181818;
+  --bg-color: #121212;
   --secondary: #63aaff;
-  --text-color: #e0e0e0;
+  --text-color: #ffffff;
   --hover-color: #7daeff;
   --border-right: 4px;
   --background: #0a192f;
   --text-stroke-color: rgba(255, 255, 255, 0.3);
   --fs-size: 1.2em;
   --animation-color: #56a3f0;
+  --text-secondary: rgba(255, 255, 255, 0.7);
 }
 
 html {
@@ -82,7 +83,7 @@ body {
   inset: 0;
   border-right: var(--border-right) solid var(--animation-color);
   overflow: hidden;
-  transition: 0.5s;
+  transition: 0.3s ease;
   -webkit-text-stroke: 2px var(--animation-color);
 }
 
@@ -351,16 +352,17 @@ button:hover .button-text {
 
 .hero-header h1 {
   font-size: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
   color: var(--secondary);
 }
 
 .content-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 3rem;
   background: rgba(99, 170, 255, 0.03);
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 20px;
   backdrop-filter: blur(10px);
 }
@@ -407,7 +409,7 @@ button:hover .button-text {
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -704,7 +706,7 @@ button:hover .button-text {
 }
 
 .cta-button:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 10px 20px rgba(99, 170, 255, 0.2);
 }
 
@@ -1837,7 +1839,7 @@ p {
   justify-content: center;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(99, 170, 255, 0.15);
   animation: fadeIn 0.3s ease-in forwards;
@@ -2458,7 +2460,7 @@ p {
   }
 
   .modal-content {
-    padding: 1.5rem 1rem;
+    padding: 1.2rem 0.8rem;
   }
 
   .modal-content h2 {
