@@ -28,7 +28,7 @@ interface AnimatedBackgroundProps {
 const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({
   pointCount = 50,
   pointSpeed = 0.5,
-  trailColor = "rgba(255, 0, 255, 0.5)",
+  trailColor = "rgba(0, 255, 255, 0.5)",
   maxConnections = 3,
   trailLength = 0.8,
   interactionRadius = 120,
