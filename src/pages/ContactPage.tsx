@@ -110,8 +110,8 @@ const ContactPage = () => {
     <div className="contact-page">
       <div className="contact-section">
         <div className="contact-container">
-          <h1 className="contact-title">Get in Touch</h1>
-          <p className="contact-subtitle">Let's create something amazing together</p>
+          <h1 className="contact-title">Get in Touch!</h1>
+          <p className="contact-subtitle">Let's create something amazing together. Drop me a message!</p>
           <div className="contact-info">
             <p>Currently a college student pursuing Information Technology. I'm always excited to discuss new opportunities and collaborations!</p>
             <p>Expected response time: Within 24-48 hours</p>
@@ -169,7 +169,7 @@ const ContactPage = () => {
               disabled={isSubmitting}
             >
               <span className="button-content">
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Sending...' : 'Send Message!'}
               </span>
             </button>
 

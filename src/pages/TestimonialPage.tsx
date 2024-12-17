@@ -10,6 +10,7 @@ interface Testimonial {
   image: string;
   name: string;
   text: string;
+  role: string;
 }
 
 const TestimonialPage: React.FC = () => {
@@ -36,13 +37,14 @@ const TestimonialPage: React.FC = () => {
     >
       <h1 className="testimonial-header">What People Say</h1>
       
-      <div className="testimonial-grid">
+      <div className="testimonial-grid" style={{ gap: '20px' }}>
         {testimonialData.map((testimonial: Testimonial, index: number) => (
           <TestimonialCard
             key={testimonial.id}
             {...testimonial}
             index={index}
             activeIndex={activeIndex}
+            role={testimonial.role}
           />
         ))}
       </div>

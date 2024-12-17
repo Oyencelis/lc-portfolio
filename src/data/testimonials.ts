@@ -8,26 +8,30 @@ export const testimonialData = [
     id: '1',
     image: ment,
     name: 'Mark Clement Fernandez',
-    text: 'This person is truly hardworking, coding at any time of the day. They’re determined to reach the level of someone they admire.'
+    text: 'This person is truly hardworking, coding at any time of the day. They’re determined to reach the level of someone they admire.',
+    role: 'Software Engineer'
   },
   {
     id: '2',
     image: dennrick,
     name: 'Dennrick Agustin',
-    text: 'I had the pleasure of working with Lawrence Celis on building Web Design, and I was impressed with their professionalism and creativity.'
+    text: 'I had the pleasure of working with Lawrence Celis on building Web Design, and I was impressed with their professionalism and creativity.',
+    role: 'Game Developer'
   },
 
   {
     id: '3',
     image: kaith,
     name: 'John Kaith Yamomo',
-    text: 'I highly recommend Lawrence Celis for front-end design. His work is professional, user-friendly, and efficient, and he’s also skilled in back-end development.'
+    text: 'I highly recommend Lawrence Celis for front-end design. His work is professional, user-friendly, and efficient, and he’s also skilled in back-end development.',
+    role: 'Documentary Maker'
   },
 
   {
     id: '4',
     image: angelica,
     name: 'Angelica Cuevas',
-    text: 'Lawrence Celis is a remarkably industrious and resolute person whose influence does not stop at the workplace. He possesses tireless work ethics which encourages him to put his best in every task given to him.'
+    text: 'Lawrence Celis is a remarkably industrious and resolute person whose influence does not stop at the workplace. He possesses tireless work ethics which encourages him to put his best in every task given to him.',
+    role: 'Web Designer'
   },
 ]; 

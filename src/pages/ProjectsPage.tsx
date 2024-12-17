@@ -93,9 +93,9 @@ const ProjectsPage: React.FC = () => {
       id: 1,
       title: "E - Lance",
       description:
-        "E-Lance is like the coolest smartphone bazaar ever 📱, where you can find all the latest gadgets and gizmos 🎉. It's designed to be super easy to use, with a sleek design in green and grey tones 🌿. You can secure your spot in the marketplace with a secure login 🔒 and manage your profile like a boss 💼. Sellers can list their devices 🚀 and keep track of their sales 📈, while buyers can browse through a wide variety of smartphones with special promotions and discounts 🎁. The app is all about real-time interaction 💬, making the checkout process a breeze 💨. Payments are secure 💸 and there are analytics for both buyers and sellers 📊. Whether you're a tech geek 🤖 or a business looking to expand 🚀, E-Lance has got you covered 🎉. (Academic Project - Not Deployed)",
+        "E-Lance is a revolutionary smartphone marketplace that connects buyers and sellers in real-time. With a sleek design and secure login, it offers a seamless experience for managing profiles and transactions. Explore the latest gadgets with exclusive promotions and analytics for both buyers and sellers. (Academic Project - Not Deployed)",
       shortDescription:
-        "E-Lance: Academic project - The ultimate smartphone marketplace with a sleek design.",
+        "E-Lance: Your go-to platform for buying and selling smartphones with real-time interaction.",
       category: "Not Deployed",
       image: elanceImage,
       techStack: ["HTML", "CSS", "JavaScript", "Flask", "MySQL", "Python"],
@@ -107,9 +107,9 @@ const ProjectsPage: React.FC = () => {
       id: 2,
       title: "Scholarly",
       description:
-        "🚀 Scholarly is a cutting-edge platform that's all about making academic collaboration and resource sharing a breeze 🌈. With its super intuitive interface, Scholarly connects students and educators, enabling them to share knowledge, discuss ideas, and work together seamlessly 💬. It's packed with features like customizable profiles, resource organization, and smooth communication tools 📲. Whether you're teaming up on projects, exchanging research, or monitoring academic progress, Scholarly has got the tools to create a productive and engaging academic space 🚀. (Academic Project - Not Deployed)",
+        "Scholarly is an innovative platform designed to enhance academic collaboration. It connects students and educators, allowing for resource sharing and seamless communication. With customizable profiles and organized resources, it fosters a productive academic environment. (Academic Project - Not Deployed)",
       shortDescription:
-        "Scholarly: Academic platform for collaboration and resource sharing.",
+        "Scholarly: A platform for students and educators to collaborate and share resources.",
       category: "Not Deployed",
       image: scholarlyImage,
       techStack: ["HTML", "CSS", "JavaScript", "SpringBoot", "MySQL", "Java"],
@@ -216,8 +216,8 @@ const ProjectsPage: React.FC = () => {
           <p>Where code meets creativity 💻</p>
           <div className="project-notice">
             <p>
-              Heads up! 🚨 These projects are part of my student project portfolio
-              📚, showcasing my skills and progress as a dev 💻. Some are already deployed and rocking
+              Heads up! 🚨 These projects are part of my student project portfolio 
+              📚, showcasing my skills and progress as a dev 💻. Some are already deployed and rocking 
               🚀!
             </p>
           </div>
@@ -248,7 +248,7 @@ const ProjectsPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{
-                y: -10,
+                scale: 1.05,
                 transition: { duration: 0.2 },
               }}
               onClick={() => openModal(project)}
