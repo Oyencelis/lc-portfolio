@@ -192,6 +192,76 @@ export const resources: Resource[] = [
       link: "https://www.framer.com/motion/",
       category: "Animation",
     },
-    
-    // Add more resources as needed
+    {
+      title: "VSCode",
+      description: "A powerful source code editor with built-in support for JavaScript, TypeScript, and Node.js.",
+      link: "https://code.visualstudio.com/",
+      category: "Code Editor",
+    },
+    {
+      title: "CodePen",
+      description: "A social development environment where you can find inspiration and share your projects with others.",
+      link: "https://codepen.io/",
+      category: "Code Hosting",
+    },
+    {
+      title: "CodeSandbox",
+      description: "An online IDE for building web applications with instant feedback.",
+      link: "https://codesandbox.io/",
+      category: "Code Hosting",
+    },
+    {
+      title: "Adobe Photoshop",
+      description: "A professional image editing and graphic design software.",
+      link: "https://www.adobe.com",
+      category: "Design",
+    },
+    {
+      title: "Netlify",
+      description: "A cloud platform for building, deploying, and managing modern web projects.",
+      link: "https://www.netlify.com/",
+      category: "Code Hosting",
+    },
+    {
+      title: "Supabase",
+      description: "An open-source platform for building real-time web applications with a focus on data storage and real-time data synchronization.",
+      link: "https://supabase.com/",
+      category: "Database",
+    },
+    {
+      title: "MySQL",
+      description: "A widely used open-source relational database management system.",
+      link: "https://www.mysql.com/",
+      category: "Database",
+    },
+    {
+      title: "MongoDB",
+      description: "A NoSQL database that provides high performance, high availability, and easy scalability.",
+      link: "https://www.mongodb.com/",
+      category: "Database",
+    },
+    {
+      title: "PostgreSQL",
+      description: "An open-source object-relational database system with an emphasis on extensibility and standards-compliance.",
+      link: "https://www.postgresql.org/",
+      category: "Database",
+    },
+    {
+      title: "SQLite",
+      description: "A self-contained, file-based, zero-configuration, transactional SQL database engine.",
+      link: "https://www.sqlite.org/",
+      category: "Database",
+    },
+    {
+      title: "Postman",
+      description: "A collaboration platform for API development and testing.",
+      link: "https://www.postman.com/",
+      category: "API",
+    },
+    {
+      title: "NetBeans",
+      description: "A free and open-source integrated development environment for Java, PHP, and other programming languages.",
+      link: "https://netbeans.apache.org/",
+      category: "Code Editor",
+    },
   ];
