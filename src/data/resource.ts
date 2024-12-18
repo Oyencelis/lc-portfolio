@@ -187,12 +187,6 @@ export const resources: Resource[] = [
       category: "AI",
     },
     {
-      title: "Animated Background",
-      description: "A library for creating animated backgrounds using HTML5 Canvas.",
-      link: "https://github.com/juliangarnier/animated-background",
-      category: "Animation",
-    },
-    {
       title: "Framer Motion",
       description: "A library for creating animated backgrounds using HTML5 Canvas.",
       link: "https://www.framer.com/motion/",
