@@ -186,5 +186,18 @@ export const resources: Resource[] = [
       link: "https://durable.co/",
       category: "AI",
     },
+    {
+      title: "Animated Background",
+      description: "A library for creating animated backgrounds using HTML5 Canvas.",
+      link: "https://github.com/juliangarnier/animated-background",
+      category: "Animation",
+    },
+    {
+      title: "Framer Motion",
+      description: "A library for creating animated backgrounds using HTML5 Canvas.",
+      link: "https://www.framer.com/motion/",
+      category: "Animation",
+    },
+    
     // Add more resources as needed
   ];
