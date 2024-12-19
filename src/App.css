@@ -2166,7 +2166,8 @@ p {
 
   .contact-section {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1rem;
+    width: auto;
   }
 }
 
