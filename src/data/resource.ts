@@ -264,4 +264,10 @@ export const resources: Resource[] = [
       link: "https://netbeans.apache.org/",
       category: "Code Editor",
     },
+    {
+      title: "Bolt",
+      description: "Bolt.new is an AI-powered platform that helps you quickly create and launch projects with ease, streamlining workflows and focusing on what truly matters",
+      link: "https://bolt.new/",
+      category: "AI",
+    }
   ];
