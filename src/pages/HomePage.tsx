@@ -8,6 +8,7 @@ import {
   FaJava,
   FaPython,
   FaBootstrap,
+  FaElementor,
 } from "react-icons/fa";
 import { SiTypescript, SiFlask, SiMysql, SiSpringboot } from "react-icons/si";
 import WaveBackground from "../components/WaveBackground";
@@ -223,6 +224,15 @@ const HomePage: React.FC = () => {
                     rel="noopener noreferrer"
                   >
                     <FaJs /> JavaScript
+                  </a>
+                </span>
+                <span>
+                  <a
+                    href="https://elementor.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaElementor /> Elementor
                   </a>
                 </span>
                 <span>
