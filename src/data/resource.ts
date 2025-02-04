@@ -269,5 +269,11 @@ export const resources: Resource[] = [
       description: "Bolt.new is an AI-powered platform that helps you quickly create and launch projects with ease, streamlining workflows and focusing on what truly matters",
       link: "https://bolt.new/",
       category: "AI",
+    },
+    {
+      title: "Envato Elements",
+      description: "A platform offering a wide range of design assets, including templates, graphics, and audio, for web and mobile app development.",
+      link: "https://elements.envato.com/",
+      category: "Design",
     }
   ];
