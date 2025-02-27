@@ -275,5 +275,23 @@ export const resources: Resource[] = [
       description: "A platform offering a wide range of design assets, including templates, graphics, and audio, for web and mobile app development.",
       link: "https://elements.envato.com/",
       category: "Design",
-    }
+    },
+    {
+      title: "Tempo",
+      description: "A platform that helps businesses create, manage, and optimize digital marketing campaigns.",
+      link: "https://app.tempolabs.ai/",
+      category: "AI",
+    },
+    {
+      title: "Relume",
+      description: "Relume is a platform that helps businesses create, manage, and optimize digital marketing campaigns.",
+      link: "https://www.relume.ai/",
+      category: "AI",
+    },
+    {
+      title: "CSS Grid Generator",
+      description: "A tool that helps you generate CSS Grid layouts for your projects.",
+      link: "https://cssgridgenerator.io/",
+      category: "CSS",
+    },
   ];
